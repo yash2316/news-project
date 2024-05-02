@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            background-color: #212121;
+            color: #fff;
+        }
+
+        .card-header {
+            height: auto;
+            overflow: hidden;
+            padding: 20px;
+            border-top-left-radius: .25rem;
+            border-top-right-radius: .25rem;
+            background: linear-gradient(40deg, #000000, #424242);
+        }
+
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            background-color: #333333;
+            border-radius: 15px;
+            border: none; /* Removed default border */
+        }
+
+        .card:hover {
+            transform: translateY(-15px); /* Increased raise on hover */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Increased box shadow on hover */
+        }
+
+        .container {
+            max-width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Flexible grid layout */
+            gap: 20px; /* Added gap between cards */
+            padding: 0 20px; /* Added padding to container */
+        }
+
+        .card-body {
+            padding: 20px; /* Added padding to card body */
+        }
+
+        .card-title {
+            color: #fff;
+            font-weight: bold;
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .card-body p {
+            color: #ddd;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .image img {
+            width: 100%;
+            max-width: 100%; /* Set maximum width to prevent image from exceeding container width */
+            height: auto; /* Maintain aspect ratio */
+            max-height: 150px; /* Added to limit the height */
+            object-fit: cover; /* Maintain aspect ratio while covering the container */
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="mt-5 mb-4 text-center">OUR STORY</h1>
+    <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">In an Era Inundated With an Incessant Stream of Information</h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="image">
+                        <span>
+                            <img src="https://newsnetwork.mayoclinic.org/n7-mcnn/7bcc9724adf7b803/uploads/2016/11/a-young-businessman-at-his-desk-looking-stressed-and-burned-out-with-computers-and-phones-16x9.jpg" alt="Stream of Information">
+                        </span>
+                    </div>
+                    <p>Navigating the digital landscape of news media can often feel overwhelming. Amidst this deluge of news articles and updates, discerning the most pertinent information efficiently has become a formidable challenge. It is within this context that our website emerges as a beacon of clarity and conciseness. Harnessing the power of cutting-edge technologies such as React.js and AI-based summarization algorithms, our platform endeavors to revolutionize the news consumption experience. By offering users the ability to swiftly browse through diverse news categories and access succinct summaries of articles, we aim to empower individuals with the knowledge they need, when they need it.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Navigating The Digital Landscape of News Media</h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="image">
+                        <span>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1fZI5AskC9U8qWLf3_mdvkRAPHAkUNBviO1gDKmkedA&s" alt="The Digital Landscape of News Media">
+                        </span>
+                    </div>
+                    <p>Navigating the digital landscape of news media can often feel overwhelming, with a myriad of platforms vying for attention. Our website seeks to differentiate itself by prioritizing simplicity, accessibility, and utility. Through an intuitive user interface and seamless integration of React.js components, users can effortlessly navigate through a curated selection of news articles spanning various topics. With just a click, users can delve deeper into articles of interest or opt for quick summaries, streamlining the process of information consumption in an increasingly fast-paced world.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Furthermore, Our Commitment to User Engagement</h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="image">
+                        <span>
+                            <img src="https://cdn.smartkarrot.com/wp-content/uploads/2020/03/User-Engagement.jpg" alt="User Engagement">
+                        </span>
+                    </div>
+                    <p>Furthermore, our commitment to user engagement extends beyond mere content delivery. By incorporating features such as user authentication, daily email subscriptions, and a feedback mechanism, we foster a sense of community and responsiveness. Whether it's receiving personalized email digests of the day's top news stories or providing valuable feedback to enhance the platform, users are not merely passive consumers but active participants in shaping their news experience. With our website, we aspire to empower individuals with the tools and insights necessary to navigate the complexities of our interconnected world with clarity and confidence.</p>
+                </div>
+            </div>
+    </div>
+
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); bottom: 0; width: 100%; margin-top: 20px;">
+        © 2020 Copyright:
+        <a class="text-white" href="https://mdbootstrap.com/">RapidRecap.com</a>
+    </div>    
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
