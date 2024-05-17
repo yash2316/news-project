@@ -1,41 +1,58 @@
 import { useEffect, useState } from "react";
-import { db } from "../firebase-config";
-import { collection, getDocs, query, where, orderBy, limit } from "firebase/firestore";
 import "../styles/loading-screens.css";
 import NewsCard from "./news-card";
 import { Skeleton } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import Masonry from 'react-masonry-css';
-
 import "../styles/loading-screens.css";
+
+import { supabase } from "../supabase-config";
+
+
 
 export default function Content({ newsList, setNewsList, topic }) {
 
 
     async function handleFetch() {
 
-        if (newsList.length != 0)
-            return;
+        try {
+            const { data, error } = await supabase.from('news')
+                .select()
+                .like('category', `%${topic}%`)
+                .order('published_date', { ascending: false }).limit(15);
+            setNewsList(data);
+            //console.log(data, error);
 
-        console.log("flag");
+        } catch (e) {
+            console.log(e);
+        }
 
-        const data = [];
-        const qry = query(collection(db, "news"), where("category_key", "in", topic), orderBy("PublishedOn", "desc"), limit(15))
-        const querySnapshot = await getDocs(qry);
-        querySnapshot.forEach((doc) => {
 
-            const obj = doc.data();
-            obj.id = doc.id;
-            data.push(obj);
+    }
 
-        });
-        //console.log(data)
-        setNewsList(data);
+    async function handleLoadMoreNews() {
+
+
+
+        try {
+            const { data, error } = await supabase.from('news')
+                .select()
+                .like('category', `%${topic}%`)
+                .order('published_date', { ascending: false }).range(newsList.length, newsList.length + 10);
+
+
+            const newData = [...newsList, ...data];
+            setNewsList(newData);
+            //console.log(data, error);
+
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     useEffect(() => {
         handleFetch();
+
     }, [topic[0]]);
 
 
@@ -49,8 +66,7 @@ export default function Content({ newsList, setNewsList, topic }) {
     return (
         <div className="p-2" style={{ width: "100%" }}>
 
-            {newsList.length == 0 ? <SkeletonLoading /> : null}
-            
+            {newsList.length !== 0 ? null : <SkeletonLoading />}
 
             <Masonry
                 breakpointCols={breakpointColumnsObj}
@@ -59,7 +75,11 @@ export default function Content({ newsList, setNewsList, topic }) {
 
                 {newsList && newsList.map((c) => <NewsCard obj={c} key={c.id} />)}
 
+
             </Masonry>
+
+
+            <button className="btn btn-grey" onClick={() => { handleLoadMoreNews() }} >Load More</button>
 
         </div>
     );
@@ -78,13 +98,6 @@ function SkeletonLoading() {
 
 
     return (
-        // <div className="news-grid">
-        //     {Array.from({ length: 8 }, (_, index) => (
-        //         <SkeletonCard key={index} />
-        //     ))}
-        // </div>
-
-
 
         <Masonry
             breakpointCols={breakpointColumnsObj}

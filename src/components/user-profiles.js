@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react"
-import { db } from "../firebase-config";
-import { collection, getDocs, query, where, deleteDoc, doc } from "firebase/firestore";
+import { supabase } from "../supabase-config";
+
+export default function UserProfile({ userEmail, setOpenUserProfile, setUserEmail }) {
 
 
-export default function UserProfile({ userEmail,setOpenUserProfile }) {
-
-    
-    const [subsList, setSubsList] = useState([]);
+    const [subsData, setSubsData] = useState([]);
     const [temp, setTemp] = useState(2);
+
+    const [fadeIn, setFadeIn] = useState(false);
+    useEffect(() => {
+        // Set fadeIn to true after the component mounts
+        setFadeIn(true);
+    }, []);
 
     useEffect(() => {
         getMySubscriptions();
@@ -18,33 +22,17 @@ export default function UserProfile({ userEmail,setOpenUserProfile }) {
 
         try {
 
-            const qry = query(collection(db, "subscriptions"), where("email", "==", userEmail))
-            const snapshot = await getDocs(qry);
+            const { data, error } = await supabase.from('subs')
+                .select()
+                .eq('email', userEmail);
 
-            const list = []
+            setSubsData(data);
+            //console.log(data);
 
-            snapshot.forEach((doc) => {
+            if (error) {
+                console.log(error);
+            }
 
-                const data = doc.data();
-                data.id = doc.id;
-                list.push(data);
-                //console.log(doc.data());
-            })
-
-            setSubsList(list);
-        } catch (e) {
-            console.log(e);
-        }
-
-    }
-
-    async function handleDeleteSubscription(docId) {
-
-
-        try {
-            const documentRef = doc(db, "subscriptions", docId);
-            const response = await deleteDoc(documentRef);
-            console.log(response);
 
         } catch (e) {
             console.log(e);
@@ -52,33 +40,38 @@ export default function UserProfile({ userEmail,setOpenUserProfile }) {
 
     }
 
-    function SubscriptionTemplate({ sub }) {
+    async function handleDeleteSubscription() {
 
-        const id = sub.id;
+        const { error } = await supabase
+            .from('subs')
+            .delete()
+            .eq('email', userEmail);
 
-        const handleCancel = () => {
-            handleDeleteSubscription(id);
-            setTemp(temp+1);
-        };
+        if (!error) {
+            setSubsData([])
+        }
 
-        return (
-            <div className="container d-flex justify-content-evenly align-items-center border border-top-0">
-                <h1>{sub.time.toUpperCase()}</h1>
-                <button onClick={handleCancel} className="btn btn-dark" >Cancel</button>
-            </div>
-        );
+        console.log(error);
+
     }
+
 
 
     return (
 
-        <div className="modal-view">
+        <div className={`modal-view  ${ fadeIn ? 'fade-in' : ''}`}>
             <div className="user-profile-modal">
-            <h1>Your subscriptions</h1>
-            <button className='btn-close' onClick={() => { setOpenUserProfile(false) }}></button>
-                <p>Email: {userEmail}</p>
-                {subsList.length==0 ? <div>No subscriptions</div>: null}
-                {subsList && subsList.map(sub => <SubscriptionTemplate key={sub.id} sub={sub} />)}
+                <h1>Profile</h1>
+                <button className='btn-close' onClick={() => { setOpenUserProfile(false); setFadeIn(false) }}></button>
+                <p>Your Email: {userEmail}</p>
+                {subsData.length == 0 ?
+                    <div>No subscriptions</div> :
+                    <div className="container d-flex justify-content-evenly align-items-center border border-top-0">
+                        <div>Time : {subsData[0].time.toUpperCase()}:00</div>
+                        <div>Categories: {subsData[0].category.map((c) => <span>{c} </span>)}</div>
+                        <button onClick={handleDeleteSubscription} className="btn btn-danger" >Cancel Subscription</button>
+                    </div>}
+
             </div>
         </div>
     )

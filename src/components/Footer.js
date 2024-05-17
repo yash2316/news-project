@@ -2,13 +2,7 @@ import React from "react";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import logo from './NSAI_LOGO.png';
 
-import { Link } from 'react-router-dom';
 
-
-//import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import OurStory from '../pages/our-story'; // Import your OurStory component
-import OurTeam from '../pages/our-team'; // Import your OurTeam component
-import OurMission from '../pages/our-mission';
 
 
 
@@ -58,11 +52,14 @@ function Footer() {
             {/* Grid column */}
             <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
               {/* Links */}
-              <h6 className="text-uppercase fw-bold">Source</h6>
+              <h6 className="text-uppercase fw-bold">Sources</h6>
               <hr className="mb-4 mt-0 d-inline-block mx-auto" style={{ width: "75px", backgroundColor: "#7c4dff", height: "2px" }} />
-              <p><a href="#!" className="text-white">source1</a></p>
-              <p><a href="#!" className="text-white">source2</a></p>
-              <p><a href="#!" className="text-white">source3</a></p>
+              <p><a href="https://timesofindia.indiatimes.com/" className="text-white">Times of India</a></p>
+              <p><a href="https://abcnews.go.com/" className="text-white">ABC News</a></p>
+              <p><a href="https://www.foxnews.com/" className="text-white">FoxNews</a></p>
+              <p><a href="https://www.cnbc.com/world/?region=world" className="text-white">CNBC</a></p>
+              <p><a href="https://www.livemint.com/" className="text-white">Livemint</a></p>
+              <p><a href="https://www.moneycontrol.com/s" className="text-white">Moneycontrol</a></p>
             </div>
             {/* Grid column */}
 
@@ -71,9 +68,9 @@ function Footer() {
               {/* Links */}
               <h6 className="text-uppercase fw-bold">About Us</h6>
               <hr className="mb-4 mt-0 d-inline-block mx-auto" style={{ width: "95px", backgroundColor: "#7c4dff", height: "2px" }} />
-              <p><a href="../pages/our-story.html" className="text-white">Our Story</a></p>
-              <p><a href="news-ai\src\pages\our-team.html" className="text-white">Our Team</a></p>
-              <p><a href="news-ai\src\pages\our-story.html" className="text-white">Our Mission</a></p>
+              <p><a href="" className="text-white">Our Story</a></p>
+              <p><a href="" className="text-white">Our Team</a></p>
+              <p><a href="" className="text-white">Our Mission</a></p>
             </div>
 
 
@@ -87,9 +84,9 @@ function Footer() {
               {/* Links */}
               <h6 className="text-uppercase fw-bold">Contact Us</h6>
               <hr className="mb-4 mt-0 d-inline-block mx-auto" style={{ width: "115px", backgroundColor: "#7c4dff", height: "2px" }} />
-              <p><i className="fas fa-home mr-3"></i> New York, NY 10012, US</p>
-              <p><i className="fas fa-envelope mr-3"></i> info@rapidrecap.com</p>
-              <p><i className="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+              
+              <p><i className="fas fa-envelope mr-3"></i> yashgaude77@gmail.com</p>
+              
             </div>
             {/* Grid column */}
           </div>
@@ -102,7 +99,7 @@ function Footer() {
 
       {/* Copyright */}
       <div className="text-center p-3" style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}>
-        © 2020 Copyright:
+        © 2024 Copyright:
         <a className="text-white" href="#home">RapidRecap.com</a>
       </div>
       {/* Copyright */}

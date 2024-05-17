@@ -7,14 +7,14 @@ import Content from "./components/content";
 import LoginModal from "./components/LoginModal";
 import Footer from "./components/Footer";
 import UserProfile from "./components/user-profiles";
+import Search from "./components/search";
 
 
-
-
+import { supabase } from "./supabase-config";
 import { useEffect, useState } from "react";
-import { auth } from "./firebase-config";
-import { signOut } from "firebase/auth";
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { CSSTransition } from 'react-transition-group';
 
 
 function App() {
@@ -25,16 +25,27 @@ function App() {
   const [techNews, setTechNews] = useState([]);
   const [sportsNews, setSportsNews] = useState([]);
   const [scienceNews, setScienceNews] = useState([]);
-  const [healthNews, setHealthNews] = useState([]);
   const [entertainmentNews, setEntertainmentNews] = useState([]);
+
+
   const [openedSubscribe, setOpenedSubscribe] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
   const [openUserProfile, setOpenUserProfile] = useState(false);
   const [userEmail, setUserEmail] = useState("");
+  const [anyError, setAnyError] = useState("");
+
+
+
+  async function checkIfUserLogged() {
+    const userCred = await supabase.auth.getUser();
+    setUserEmail(userCred.data.user ? userCred.data.user.email : "");
+    //console.log(userEmail)
+  }
 
   useEffect(() => {
-    setUserEmail(window.sessionStorage.getItem("email"));
 
+    checkIfUserLogged();
+    //console.log(userEmail);
 
   }, []);
 
@@ -49,21 +60,22 @@ function App() {
 
   async function handleLogout() {
     try {
-      await signOut(auth);
+
+      const error = await supabase.auth.signOut()
+      console.log(error);
       setUserEmail("");
-      window.sessionStorage.removeItem("email");
+
     } catch (error) {
       console.error("Error signing out:", error);
     }
   }
 
   return (
+
     <div className="App">
 
-      {/* { user profile} */}
-      {userEmail ? <div className="user-profile" onClick={() => { setOpenUserProfile(!openUserProfile) }}></div> : null}
-
-      {openUserProfile ? <UserProfile userEmail={userEmail} setOpenUserProfile={setOpenUserProfile} /> : null}
+      {/* user profile modal */}
+      {openUserProfile ? <UserProfile userEmail={userEmail} setOpenUserProfile={setOpenUserProfile} setUserEmail={setUserEmail} /> : null}
 
 
       {/* Login Modal */}
@@ -72,19 +84,25 @@ function App() {
           userEmail={userEmail}
           setUserEmail={setUserEmail}
           setOpenLogin={setOpenLogin}
+          anyError={anyError}
         />
       ) : null}
 
 
       {/* Subscribe Modal */}
+      
+
       {openedSubscribe ? (
         <SubscribeModal
           userEmail={userEmail}
           setUserEmail={setUserEmail}
           setOpenLogin={setOpenLogin}
           setOpenedSubscribe={setOpenedSubscribe}
+          setAnyError={setAnyError}
         />
       ) : null}
+
+
 
       <header className="d-flex  container-fluid justify-content-around align-items-center flex-wrap">
         {/* First Row */}
@@ -94,10 +112,8 @@ function App() {
           <h1 id="home">RapidRecap</h1>
         </div>
 
-{/* search bar */}
-        {/* <div className="grid-item">
-          <input type="text" placeholder="Search..." className="search-bar" />
-        </div> */}
+        {/* search bar */}
+        <Search />
 
 
 
@@ -113,11 +129,18 @@ function App() {
             onClick={() => {
               setOpenedSubscribe(!openedSubscribe);
               setOpenLogin(false);
-            }}
-          >Subscribe
+            }}>Subscribe
           </button>
 
         </div>
+
+
+
+        {/* { user profile} */}
+        {userEmail ? <i className="fa-solid fa-bars user-profile" onClick={() => { setOpenUserProfile(!openUserProfile) }}></i> : null}
+
+
+
 
       </header>
 
@@ -130,7 +153,7 @@ function App() {
                 <Content
                   setNewsList={setTopNews}
                   newsList={topNews}
-                  topic={["india", "world", "sports", "entertainment"]}
+                  topic={[""]}
                 />
               }
             />
@@ -195,16 +218,6 @@ function App() {
               }
             />
             <Route
-              path="HEALTH"
-              element={
-                <Content
-                  setNewsList={setHealthNews}
-                  newsList={healthNews}
-                  topic={["health"]}
-                />
-              }
-            />
-            <Route
               path="ENTERTAINMENT"
               element={
                 <Content
@@ -221,9 +234,11 @@ function App() {
 
       <Footer />
 
-      
+
     </div>
   );
 }
 
 export default App;
+
+
