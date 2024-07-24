@@ -90,8 +90,6 @@ function App() {
 
 
       {/* Subscribe Modal */}
-      
-
       {openedSubscribe ? (
         <SubscribeModal
           userEmail={userEmail}

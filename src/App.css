@@ -221,14 +221,16 @@ header h1 {
 /* Search bar styles */
 .search-bar {
   font-family: Georgia, 'Times New Roman', Times, serif;
-  width: 400px;
+  max-width: 400px;
+  width: 80vw;
   padding: 10px;
+  height: 40px;
   border: none;
   border-radius: 10px;
   outline: none;
   color: white;
   background-color: rgb(87, 87, 87);
-  z-index: 24;
+  
 }
 
 
@@ -245,25 +247,41 @@ header h1 {
   text-align: center;
 }
 
+.search-bar-container{
+  z-index: 24;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
 .search {
   display: flex;
-  align-items: center;
   flex-direction: column;
   justify-content: start;
   position: relative;
+}
+
+.search-options{
+  height: 40px;
+  width: 30px;
+  border-radius: 10px;
+  background-color: rgb(87, 87, 87);
+  border: none;
+  margin-left: 1px;
 }
 
 
 .search-result {
   position: absolute;
   z-index: 23;
-  background-color: white;
+  background-color: rgba(83, 83, 83, 0.98);
   border: 1px solid black;
+  color: white;
   border-radius: 10px;
   padding: 5px;
   max-height: 80vh;
   overflow: auto;
-  width: 100%;
+  max-width: 400px;
+  width: 80vw;
   -ms-overflow-style: none;
   /* IE and Edge */
   scrollbar-width: none;
@@ -274,8 +292,6 @@ header h1 {
 .search-result ::-webkit-scrollbar {
   display: none;
 }
-
-
 
 .summmm {
   margin-top: 45px;
@@ -288,6 +304,8 @@ header h1 {
 
 
 
+
+
 .news-card {
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
@@ -296,3 +314,5 @@ header h1 {
 .news-card.fade-in {
   opacity: 1;
 }
+
+

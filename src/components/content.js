@@ -21,6 +21,8 @@ export default function Content({ newsList, setNewsList, topic }) {
                 .like('category', `%${topic}%`)
                 .order('published_date', { ascending: false }).limit(15);
             setNewsList(data);
+
+            
             //console.log(data, error);
 
         } catch (e) {
